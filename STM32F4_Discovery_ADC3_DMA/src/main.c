@@ -1,7 +1,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4_discovery.h"
 #include <stdio.h>
-
+//#include "arm_math.h""
 /* Private define ------------------------------------------------------------*/
 #define ADC3_DR_ADDRESS     ((uint32_t)0x4001224C)
 
@@ -16,6 +16,12 @@ void ADC3_CH12_DMA_Config(void);
 
 int main(void)
 {
+	double result = 0;
+	int *wsk1 = ((uint32_t)0x2000002c);
+	int *wsk2 = ((uint32_t)0x20000030);
+	int *wsk3 = ((uint32_t)0x20000034);
+	int *wsk4 = ((uint32_t)0x20000038);
+
   /*!< At this stage the microcontroller clock setting is already configured, 
        this is done through SystemInit() function which is called from startup
        file (startup_stm32f4xx.s) before to branch to application main.
@@ -29,13 +35,15 @@ int main(void)
   /*  - Configure ADC3 Channel12                                              */
   ADC3_CH12_DMA_Config();
 
+  // FIR filter coeffs
+double coeffs[] = {0.25, 0.25, 0.25, 0.25};
   /* Start ADC3 Software Conversion */ 
   ADC_SoftwareStartConv(ADC3);
 
   while (1)
   {
-  /* convert the ADC value (from 0 to 0xFFF) to a voltage value (from 0V to 3.3V)*/
-  //  ADC3ConvertedVoltage = ADC3ConvertedValue *3300/0xFFF;
+	  result = coeffs[0] * (*wsk1) + coeffs[1] * (*wsk2) + coeffs[2] * (*wsk3)+ coeffs[3] * (*wsk4);
+
   }
 }
 
@@ -61,11 +69,11 @@ void ADC3_CH12_DMA_Config(void)
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC3_DR_ADDRESS;
   DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&ADC3ConvertedValue;
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
-  DMA_InitStructure.DMA_BufferSize = 5;
+  DMA_InitStructure.DMA_BufferSize = 4;
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
   DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
-  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;
   DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
   DMA_InitStructure.DMA_Priority = DMA_Priority_High;
   DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;         

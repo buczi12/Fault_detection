@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="com.atollic.truestudio.exe.debug.1436512012">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.atollic.truestudio.exe.debug.1436512012" moduleId="org.eclipse.cdt.core.settings" name="Debug">
@@ -17,6 +15,9 @@
 				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="com.atollic.truestudio.exe.debug.1436512012" name="Debug" parent="com.atollic.truestudio.exe.debug">
 					<folderInfo id="com.atollic.truestudio.exe.debug.1436512012." name="/" resourcePath="">
 						<toolChain id="com.atollic.truestudio.exe.debug.toolchain.1618922058" name="Atollic ARM Tools" superClass="com.atollic.truestudio.exe.debug.toolchain">
+							<option id="com.atollic.truestudio.general.runtimelib.190119185" superClass="com.atollic.truestudio.general.runtimelib" value="com.atollic.truestudio.ld.general.clib.small" valueType="enumerated"/>
+							<option id="com.atollic.truestudio.toolchain_options.mcu.1305585155" superClass="com.atollic.truestudio.toolchain_options.mcu" value="STM32F407VG" valueType="string"/>
+							<option id="com.atollic.truestudio.toolchain_options.vendor.1887428370" superClass="com.atollic.truestudio.toolchain_options.vendor" value="STMicroelectronics" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.atollic.truestudio.exe.debug.toolchain.platform.414498466" isAbstract="false" name="Debug platform" superClass="com.atollic.truestudio.exe.debug.toolchain.platform"/>
 							<builder buildPath="${workspace_loc:/STM32F4_Discovery_ADC3_DMA/Debug}" id="com.atollic.truestudio.mbs.builder1.502934270" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="com.atollic.truestudio.mbs.builder1"/>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.1013588468" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as">
@@ -26,6 +27,7 @@
 								<option id="com.atollic.truestudio.common_options.target.fpu.1943746453" name="Floating point" superClass="com.atollic.truestudio.common_options.target.fpu" value="Hardware implementation" valueType="enumerated"/>
 								<option id="com.atollic.truestudio.as.symbols.defined.1948790129" name="Defined symbols" superClass="com.atollic.truestudio.as.symbols.defined"/>
 								<option id="com.atollic.truestudio.as.general.incpath.387675385" name="Include path" superClass="com.atollic.truestudio.as.general.incpath"/>
+								<option id="com.atollic.truestudio.common_options.target.fpucore.1481819783" superClass="com.atollic.truestudio.common_options.target.fpucore" value="com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16" valueType="enumerated"/>
 								<inputType id="com.atollic.truestudio.as.input.611935775" name="Input" superClass="com.atollic.truestudio.as.input"/>
 							</tool>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.267579558" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc">
@@ -48,6 +50,7 @@
 								<option id="com.atollic.truestudio.common_options.target.fpu.1368259969" name="Floating point" superClass="com.atollic.truestudio.common_options.target.fpu" value="Hardware implementation" valueType="enumerated"/>
 								<option id="com.atollic.truestudio.gcc.optimization.prep_garbage.445296916" name="Prepare dead code removal" superClass="com.atollic.truestudio.gcc.optimization.prep_garbage" value="true" valueType="boolean"/>
 								<option id="com.atollic.truestudio.gcc.optimization.prep_data.146239193" name="Prepare dead data removal" superClass="com.atollic.truestudio.gcc.optimization.prep_data" value="true" valueType="boolean"/>
+								<option id="com.atollic.truestudio.common_options.target.fpucore.295326921" superClass="com.atollic.truestudio.common_options.target.fpucore" value="com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16" valueType="enumerated"/>
 								<inputType id="com.atollic.truestudio.gcc.input.1734986284" superClass="com.atollic.truestudio.gcc.input"/>
 							</tool>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.ld.54125706" name="C Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ld">
@@ -60,6 +63,7 @@
 								<option id="com.atollic.truestudio.ld.libraries.list.981691875" name="Libraries" superClass="com.atollic.truestudio.ld.libraries.list" valueType="libs">
 									<listOptionValue builtIn="false" value="m"/>
 								</option>
+								<option id="com.atollic.truestudio.common_options.target.fpucore.702243625" superClass="com.atollic.truestudio.common_options.target.fpucore" value="com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16" valueType="enumerated"/>
 								<inputType id="com.atollic.truestudio.ld.input.2030711196" name="Input" superClass="com.atollic.truestudio.ld.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -100,6 +104,7 @@
 								</option>
 							</tool>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.secoutput.245985544" name="Other" superClass="com.atollic.truestudio.exe.debug.toolchain.secoutput"/>
+							<tool id="com.atollic.truestudio.ar.base.1546525509" name="Archiver" superClass="com.atollic.truestudio.ar.base"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
@@ -118,4 +123,5 @@
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>
