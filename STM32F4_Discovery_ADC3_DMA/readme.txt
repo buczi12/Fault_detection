@@ -12,7 +12,7 @@ version history:
 
 2017-07-20 -> ADC/DMA transfer working correctly (circular buffers)
 2017-07-24 -> simple averaging FIR implemented, checked without signal generator and sems to work correctly
-
+2017-07-25 -> added more coefficiens to FIR filter, simpler code 	
 
 next aim:
 - test FIR filter with signal generator, refactor code and performance

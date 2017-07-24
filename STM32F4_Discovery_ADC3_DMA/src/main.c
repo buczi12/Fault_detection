@@ -1,58 +1,43 @@
-/* Includes ------------------------------------------------------------------*/
 #include "stm32f4_discovery.h"
 #include <stdio.h>
-//#include "arm_math.h""
-/* Private define ------------------------------------------------------------*/
+#include "arm_math.h"
+
 #define ADC3_DR_ADDRESS     ((uint32_t)0x4001224C)
+#define NUM_TAPS			10
+#define BASE_ADDRESS		((uint32_t)0x2000002C)
 
-/* You can monitor the converted value by adding the variable "ADC3ConvertedValue" 
-   to the debugger watch window */
-__IO uint16_t ADC3ConvertedValue = 0;
-__IO uint32_t ADC3ConvertedVoltage = 0;
-
-/* Private functions ---------------------------------------------------------*/
 void ADC3_CH12_DMA_Config(void);
 
 
 int main(void)
 {
-	double result = 0;
-	int *wsk1 = ((uint32_t)0x2000002c);
-	int *wsk2 = ((uint32_t)0x20000030);
-	int *wsk3 = ((uint32_t)0x20000034);
-	int *wsk4 = ((uint32_t)0x20000038);
+  // result initialization
+  double result = 0;
+  // Filter coefficients
+  double coeffs[NUM_TAPS] = {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1};
+  // Measured values addresses
+  int *wsk[NUM_TAPS];
+  for(int k = 0; k < 10; k++)
+  {
+	  wsk[k] = (int *)(BASE_ADDRESS + (uint32_t)(4 * k));
+  }
 
-  /*!< At this stage the microcontroller clock setting is already configured, 
-       this is done through SystemInit() function which is called from startup
-       file (startup_stm32f4xx.s) before to branch to application main.
-       To reconfigure the default setting of SystemInit() function, refer to
-       system_stm32f4xx.c file
-     */
-  /* ADC3 configuration *******************************************************/
-  /*  - Enable peripheral clocks                                              */
-  /*  - DMA2_Stream0 channel2 configuration                                   */
-  /*  - Configure ADC Channel12 pin as analog input                           */
-  /*  - Configure ADC3 Channel12                                              */
+
+  //DMA Configuration
   ADC3_CH12_DMA_Config();
-
-  // FIR filter coeffs
-double coeffs[] = {0.25, 0.25, 0.25, 0.25};
-  /* Start ADC3 Software Conversion */ 
+  //Start ADC3 Software Conversion
   ADC_SoftwareStartConv(ADC3);
 
-  while (1)
-  {
-	  result = coeffs[0] * (*wsk1) + coeffs[1] * (*wsk2) + coeffs[2] * (*wsk3)+ coeffs[3] * (*wsk4);
+    while (1)
+    {
 
-  }
+      result = (*wsk[0])*coeffs[0] + *wsk[1]*coeffs[1] + *wsk[2]*coeffs[2] + *wsk[3]*coeffs[3] + *wsk[4]*coeffs[4] +
+    		   (*wsk[5])*coeffs[5] + *wsk[6]*coeffs[6] + *wsk[7]*coeffs[7] + *wsk[8]*coeffs[8] + *wsk[9]*coeffs[9];
+    }
+    return 0;
 }
 
-
-/**
-  * @brief  ADC3 channel12 with DMA configuration
-  * @param  None
-  * @retval None
-  */
+// ADC3 to DMA configuration function
 void ADC3_CH12_DMA_Config(void)
 {
   ADC_InitTypeDef       ADC_InitStructure;
@@ -69,7 +54,7 @@ void ADC3_CH12_DMA_Config(void)
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC3_DR_ADDRESS;
   DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&ADC3ConvertedValue;
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
-  DMA_InitStructure.DMA_BufferSize = 4;
+  DMA_InitStructure.DMA_BufferSize = 10;
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
   DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
   DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;
@@ -117,34 +102,3 @@ void ADC3_CH12_DMA_Config(void)
   /* Enable ADC3 */
   ADC_Cmd(ADC3, ENABLE);
 }
-
-#ifdef  USE_FULL_ASSERT
-
-/**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
-void assert_failed(uint8_t* file, uint32_t line)
-{ 
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-
-  /* Infinite loop */
-  while (1)
-  {
-  }
-}
-#endif
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
